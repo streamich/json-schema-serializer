@@ -13,6 +13,10 @@ export interface TypeString {
   type: 'string';
 }
 
+export interface TypeStringEscaped {
+  type: 'string_escaped';
+}
+
 export interface TypeNumber {
   type: 'number';
 }
@@ -28,8 +32,12 @@ export interface TypeNull {
 export interface TypeJson {
   type: 'json';
 }
-export interface TypeRawJson {
-  type: 'serialized_json';
+export interface TypeJsonSerialized {
+  type: 'json_serialized';
 }
 
-export type TypeSome = TypeObject | TypeArray | TypeString | TypeNumber | TypeBoolean | TypeNull | TypeJson | TypeRawJson;
+export interface TypeAny {
+  type: 'any';
+}
+
+export type TypeSome = TypeObject | TypeArray | TypeString | TypeStringEscaped | TypeNumber | TypeBoolean | TypeNull | TypeJson | TypeJsonSerialized | TypeAny;

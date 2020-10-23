@@ -8,6 +8,11 @@ test('can serialize a string', () => {
   expect(serialize('👍')).toBe('"👍"');
 });
 
+test('can serialize a escaped string', () => {
+  const serialize = createSerializer({type: 'string_escaped'});
+  expect(serialize('xyz')).toBe('"xyz"');
+});
+
 test('can serialize a number', () => {
   const serialize = createSerializer({type: 'number'});
   expect(serialize(123)).toBe('123');
@@ -29,6 +34,31 @@ test('can serialize a null', () => {
 test('can serialize a array of numbers', () => {
   const serialize = createSerializer({type: 'array', items: {type: 'number'}});
   expect(serialize([1, 2, 3])).toBe('[1,2,3]');
+});
+
+test('can serialize one field object', () => {
+  const schema: TypeSome = {
+    type: 'object',
+    properties: {
+      id: {type: 'string'},
+    },
+  };
+  const serialize = createSerializer(schema);
+  const result = serialize({id: 'xxxxxxxxxx'});
+  expect(JSON.parse(result)).toEqual({id: 'xxxxxxxxxx'});
+});
+
+test('can serialize two field object', () => {
+  const schema: TypeSome = {
+    type: 'object',
+    properties: {
+      id: {type: 'string'},
+      rev: {type: 'number'},
+    },
+  };
+  const serialize = createSerializer(schema);
+  const result = serialize({id: 'xxxxxxxxxx', rev: 3});
+  expect(JSON.parse(result)).toEqual({id: 'xxxxxxxxxx', rev: 3});
 });
 
 test('can serialize simple object', () => {
@@ -94,3 +124,27 @@ test('can serialize complex object', () => {
   expect(JSON.parse(result)).toEqual(obj);
 });
 
+test('can serialize raw JSON data', () => {
+  const schema: TypeSome = {
+    type: 'object',
+    properties: {
+      id: {type: 'string'},
+      doc: {type: 'json_serialized'},
+    },
+  };
+  const serialize = createSerializer(schema);
+  const result = serialize({
+    id: '123',
+    doc: JSON.stringify({
+      id: 'aaa',
+      name: 'bbb',
+    }),
+  });
+  expect(JSON.parse(result)).toEqual({
+    id: '123',
+    doc: {
+      id: 'aaa',
+      name: 'bbb',
+    },
+  });
+});

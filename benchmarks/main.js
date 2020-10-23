@@ -12,15 +12,15 @@ const obj = {
     firstName: 'Vadim',
     lastName: 'Dalecky',
   },
-  // operations: [
-  //   {op: 'add', path: '/foo', value: 123},
-  // ],
+  operations: [
+    {op: 'add', path: '/foo', value: 123},
+  ],
 };
 
 const schema = {
   type: 'object',
   properties: {
-    id: {type: 'string'},
+    id: {type: 'string_serialized'},
     version: {type: 'number'},
     deleted: {type: 'boolean'},
     avatar: {type: 'null'},
@@ -31,19 +31,18 @@ const schema = {
         lastName: {type: 'string'},
       },
     },
-    // operations: {
-    //   type: 'array',
-    //   items: {
-    //     type: 'object',
-    //     properties: {
-    //       op: {type: 'string'},
-    //       path: {type: 'string'},
-    //       value: {type: 'json'},
-    //     }
-    //   },
-    // },
+    operations: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          op: {type: 'string'},
+          path: {type: 'string'},
+          value: {type: 'json'},
+        }
+      },
+    },
   },
-  optional: ['avatar', 'operations'],
 };
 
 const serializer = createSerializer(schema);
