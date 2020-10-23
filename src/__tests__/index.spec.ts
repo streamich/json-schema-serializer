@@ -36,6 +36,24 @@ test('can serialize a array of numbers', () => {
   expect(serialize([1, 2, 3])).toBe('[1,2,3]');
 });
 
+test('can serialize json', () => {
+  const serialize = createSerializer({type: 'json'});
+  expect(serialize([1, 2, 3])).toBe('[1,2,3]');
+  expect(serialize({})).toBe('{}');
+  expect(serialize({foo: 'bar'})).toBe('{"foo":"bar"}');
+  expect(serialize({foo: [1,2,3]})).toBe('{"foo":[1,2,3]}');
+  expect(serialize(123)).toBe('123');
+  expect(serialize("")).toBe('""');
+});
+
+test('can pre-serialized json', () => {
+  const serialize = createSerializer({type: 'json_serialized'});
+  expect(serialize('123')).toBe('123');
+  expect(serialize('"123"')).toBe('"123"');
+  expect(serialize(JSON.stringify({foo: 'bar'}))).toBe('{"foo":"bar"}');
+  expect(serialize(JSON.stringify([1, 2]))).toBe('[1,2]');
+});
+
 test('can serialize one field object', () => {
   const schema: TypeSome = {
     type: 'object',

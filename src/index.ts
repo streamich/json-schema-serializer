@@ -24,19 +24,10 @@ const generate = (schema: TypeSome, fn: string[] = []): string => {
         '}' +
         'return j+"]"})';
     }
-    case 'string_escaped': {
-      return 'f1';
-    }
-    case 'string': {
-      return 'f2';
-    }
-    case 'json':
-    case 'any': {
-      return 'f0';
-    }
-    default: {
-      return '';
-    }
+    case 'json': return 'f0';
+    case 'string_escaped': return 'f1';
+    case 'string': return 'f2';
+    default: return '';
   }
 };
 

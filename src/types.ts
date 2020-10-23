@@ -36,8 +36,4 @@ export interface TypeJsonSerialized {
   type: 'json_serialized';
 }
 
-export interface TypeAny {
-  type: 'any';
-}
-
-export type TypeSome = TypeObject | TypeArray | TypeString | TypeStringEscaped | TypeNumber | TypeBoolean | TypeNull | TypeJson | TypeJsonSerialized | TypeAny;
+export type TypeSome = TypeObject | TypeArray | TypeString | TypeStringEscaped | TypeNumber | TypeBoolean | TypeNull | TypeJson | TypeJsonSerialized;
