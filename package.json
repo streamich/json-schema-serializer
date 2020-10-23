@@ -1,13 +1,13 @@
 {
-  "name": "tpl-ts-lib",
+  "name": "json-schema-serializer",
   "version": "0.0.0",
   "description": "",
   "author": {
     "name": "streamich",
     "url": "https://github.com/streamich"
   },
-  "homepage": "https://github.com/streamich/tpl-ts-lib",
-  "repository": "streamich/tpl-ts-lib",
+  "homepage": "https://github.com/streamich/json-schema-serializer",
+  "repository": "streamich/json-schema-serializer",
   "license": "Unlicense",
   "engines": {
     "node": ">=10.18"
