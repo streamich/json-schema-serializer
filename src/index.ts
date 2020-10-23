@@ -40,51 +40,6 @@ const generate = (schema: TypeSome): string => {
 
 export const createSerializer = (schema: TypeSome): (json: unknown) => string => {
   const code = generate(schema);
-  console.log(code);
+  // console.log(code);
   return eval(code);
 };
-
-const schema: TypeSome = {
-  type: 'object',
-  properties: {
-    id: {type: 'string'},
-    version: {type: 'number'},
-    deleted: {type: 'boolean'},
-    avatar: {type: 'null'},
-    user: {
-      type: 'object',
-      properties: {
-        firstName: {type: 'string'},
-        lastName: {type: 'string'},
-      },
-    },
-    operations: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          op: {type: 'string'},
-          path: {type: 'string'},
-          value: {type: 'json'},
-        }
-      },
-    },
-  },
-  optional: ['avatar', 'operations', 'user'],
-};
-
-const serializer = createSerializer(schema);
-
-console.log(serializer({
-  id: 'xxxxxxxxxx',
-  version: 123,
-  deleted: false,
-  avatar: null,
-  user: {
-    firstName: 'Vadim',
-    lastName: 'Dalecky',
-  },
-  operations: [
-    {op: 'add', path: '/foo', value: 123},
-  ],
-}));
