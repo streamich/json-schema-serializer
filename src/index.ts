@@ -32,13 +32,13 @@ const generate = (schema: TypeSome, fn: string[] = []): string => {
 };
 
 function asStringSmall (str: string) {
-  var result = ''
-  var last = 0
-  var found = false
-  var surrogateFound = false
-  var l = str.length
-  var point = 255
-  for (var i = 0; i < l && point >= 32; i++) {
+  let result = ''
+  let last = 0
+  let found = false
+  let surrogateFound = false
+  const l = str.length
+  let point = 255
+  for (let i = 0; i < l && point >= 32; i++) {
     point = str.charCodeAt(i)
     if (point >= 0xD800 && point <= 0xDFFF) {
       // The current character is a surrogate.
@@ -80,5 +80,6 @@ export const createSerializer = (schema: TypeSome): (json: unknown) => string =>
   code = header + 'return function(val){return ""+(' + code + '(val))}'
   code = '(function(){' + code + '})()';
   // console.log(code);
+  // tslint:disable-next-line no-eval ban
   return eval(code);
 };
