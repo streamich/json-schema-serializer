@@ -59,7 +59,7 @@ function asStringSmall (str: string) {
   return ((point < 32) || (surrogateFound === true)) ? JSON.stringify(str) : '"' + result + '"'
 }
 
-function asString (str: string) {
+export function asString (str: string) {
   if (str.length < 42) {
     return asStringSmall(str)
   } else {
