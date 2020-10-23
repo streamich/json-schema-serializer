@@ -38,7 +38,7 @@ jobs:
       - *Test
       - *Post_to_dev_null
 
-  master:
+  main:
     <<: *container
     steps:
       - checkout
