@@ -1,6 +1,6 @@
 import {TypeSome} from './types';
 
-const generate = (schema: TypeSome): string => {
+const generate = (schema: TypeSome, fn: string[] = []): string => {
   switch (schema.type) {
     case 'object': {
       const optional = schema.optional || [];
@@ -10,16 +10,18 @@ const generate = (schema: TypeSome): string => {
         const key = keys[i];
         const isOptional = optional.indexOf(key) > -1;
         if (isOptional) {
-          code += /* js */ `if (v[${JSON.stringify(key)}] !== undefined) j+=(c>0?',':'')+${JSON.stringify(JSON.stringify(key))}+":"+${generate(schema.properties[key])}(v[${JSON.stringify(key)}]);c++;`;
+          code += /* js */ `if (v[${JSON.stringify(key)}] !== undefined) j+=(c>0?',':'')+${JSON.stringify(JSON.stringify(key))}+":"+${generate(schema.properties[key], fn)}(v[${JSON.stringify(key)}]);c++;`;
         } else {
-          code += /* js */ `j+=(c>0?',':'')+${JSON.stringify(JSON.stringify(key))}+":"+${generate(schema.properties[key])}(v[${JSON.stringify(key)}]);c++;`;
+          code += /* js */ `j+=(c>0?',':'')+${JSON.stringify(JSON.stringify(key))}+":"+${generate(schema.properties[key], fn)}(v[${JSON.stringify(key)}]);c++;`;
         }
       }
       code += /* js */ `return j+'}'})`;
-      return code;
+      const f = 'f' + fn.length;
+      fn.push(code);
+      return f;
     }
     case 'array': {
-      const type = generate(schema.items);
+      const type = generate(schema.items, fn);
       return '(function(v){' +
         'var i,j="[",l=v.length;' +
         'for(i=0;i<l;i++){' +
@@ -30,7 +32,7 @@ const generate = (schema: TypeSome): string => {
     }
     case 'string':
     case 'json': {
-      return 'JSON.stringify';
+      return 'f0';
     }
     default: {
       return '';
@@ -39,7 +41,14 @@ const generate = (schema: TypeSome): string => {
 };
 
 export const createSerializer = (schema: TypeSome): (json: unknown) => string => {
-  const code = generate(schema);
+  const fn: string[] = [
+    'JSON.stringify', // f0
+  ];
+  let code = generate(schema, fn);
+  let header = '';
+  for (let i = 0; i < fn.length; i++)
+    header += `var f${i}=${fn[i]};\n`;
+  code = header + 'return function(val){return ""+(' + code + '(val))}'
   // console.log(code);
-  return eval(code);
+  return eval('(function(){' + code + '})()');
 };
