@@ -36,13 +36,13 @@
   },
   "keywords": [],
   "dependencies": {
-    "benchmark": "^2.1.4",
-    "ts-node": "^9.0.0"
   },
   "peerDependencies": {
     "tslib": "2"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
+    "ts-node": "^9.0.0",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/npm": "^7.0.6",
