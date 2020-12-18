@@ -1,6 +1,6 @@
 {
   "name": "json-schema-serializer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "author": {
     "name": "streamich",
@@ -35,8 +35,7 @@
     "release": "semantic-release"
   },
   "keywords": [],
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "tslib": "2"
   },

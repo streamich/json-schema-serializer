@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/streamich/json-schema-serializer/compare/v1.0.0...v1.0.1) (2020-12-18)
+
+
+### Bug Fixes
+
+* move dependencies to devDependencies ([1f49010](https://github.com/streamich/json-schema-serializer/commit/1f49010699248eb0ba3ff15e8c9d8db7a4281011))
+
 # 1.0.0 (2020-10-23)
 
 
