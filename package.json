@@ -10,7 +10,7 @@
   "repository": "streamich/json-schema-serializer",
   "license": "Unlicense",
   "engines": {
-    "node": ">=10.18"
+    "node": ">=10.0"
   },
   "main": "lib/index.js",
   "module": "esm/index.js",
